@@ -1,0 +1,238 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Hotel details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding: 20px;
+        }
+
+        .i-details {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .i-details img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{url_for('home')}}">BACK</a>
+    <form method="post">
+        <input type="text" name="search_query" placeholder="Search by address">
+        <button type="submit">Search</button>
+    </form>
+    
+    <div class="container">
+        <h1>List of hotels</h1>
+        {% if detail %}
+        {% for i in detail %}
+        <div class="i-details">
+            <h2>Hotel Name: {{ i[1] }}</h2>
+
+            <span>Contact Number: {{ i[3] }}</span><br>
+            <span>Email: {{ i[4] }}</span><br>
+            <span>Address: {{ i[5] }}</span><br>
+            <span>Timings: {{ i[6] }}</span><br>
+            <span>Total Rooms: {{ i[7] }}</span><br>
+            <span>Room Cost: ${{ i[8] }}</span><br>
+            <span>Description: {{ i[9] }}</span><br>
+            <span>Rooms Availability: {{ i[11] }}</span><br>
+            <span>Number of Rooms Available: {{ i[12] }}</span>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <img src="{{ url_for('static', filename=i[2]+'.jpg') }}" class="card-img-top" alt="Hotel Picture">
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url_for('static', filename=i[10]+'.jpg') }}" class="card-img-top" alt="Room Picture">
+                </div>
+                <a href="{{url_for('booktohotel',hid=i[0])}}">book to th ehotel</a>
+
+            </div>
+        </div>
+        {% endfor %}
+       
+        {% else %}
+        <p>You have not added any hotels.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Hotel Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .i-details {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .i-details img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .i-details h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        .i-details span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .i-details a {
+            color: #007bff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .i-details a:hover {
+            text-decoration: underline;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+        }
+
+        .search-form input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .search-form {
+    margin-bottom: 20px;
+}
+
+.search-form .input-group {
+    width: 100%;
+}
+
+.search-form .form-control {
+    border-radius: 5px 0 0 5px;
+}
+
+.search-form .btn {
+    border-radius: 0 5px 5px 0;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="{{url_for('home')}}">Back</a>
+        </div>
+        <form class="search-form" method="post">
+            <div class="input-group">
+                <input type="text" name="search_query" class="form-control" placeholder="Search by address">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="row">
+            {% if detail %}
+                {% for i in detail %}
+                    <div class="col-md-6">
+                        <div class="i-details">
+                            <h2>{{ i[1] }}</h2>
+                            <span><strong>Contact Number:</strong> {{ i[3] }}</span>
+                            <span><strong>Email:</strong> {{ i[4] }}</span>
+                            <span><strong>Address:</strong> {{ i[5] }}</span>
+                            <span><strong>Timings:</strong> {{ i[6] }}</span>
+                            <span><strong>Total Rooms:</strong> {{ i[7] }}</span>
+                            <span><strong>Room Cost:</strong> ${{ i[8] }}</span>
+                            <span><strong>Description:</strong> {{ i[9] }}</span>
+                            <span><strong>Rooms Availability:</strong> {{ i[11] }}</span>
+                            <span><strong>Number of Rooms Available:</strong> {{ i[12] }}</span>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <img src="{{ url_for('static', filename=i[2]+'.jpg') }}" class="img-fluid" alt="Hotel Picture">
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{{ url_for('static', filename=i[10]+'.jpg') }}" class="img-fluid" alt="Room Picture">
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="{{url_for('booktohotel',hid=i[0])}}" class="btn btn-primary btn-lg">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p class="text-center">You have not added any hotels.</p>
+                </div>
+            {% endif %}
+        </div>
+        </body>
+
+</html>
